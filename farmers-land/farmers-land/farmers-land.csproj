@@ -195,6 +195,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804162001558_InitialCreate.cs" />
+    <Compile Include="Migrations\201804162001558_InitialCreate.Designer.cs">
+      <DependentUpon>201804162001558_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804172003349_changedTableNames.cs" />
+    <Compile Include="Migrations\201804172003349_changedTableNames.Designer.cs">
+      <DependentUpon>201804172003349_changedTableNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -321,6 +330,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804162001558_InitialCreate.resx">
+      <DependentUpon>201804162001558_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804172003349_changedTableNames.resx">
+      <DependentUpon>201804172003349_changedTableNames.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -20,6 +20,8 @@ namespace farmers_land.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -28,6 +30,18 @@ namespace farmers_land.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
+            modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
+
         }
     }
 }
