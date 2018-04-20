@@ -18,7 +18,9 @@ namespace farmers_land.Models
         }
 
         //custom user fields
-        public string address { get; set; }
+        public string Address { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
     }
 

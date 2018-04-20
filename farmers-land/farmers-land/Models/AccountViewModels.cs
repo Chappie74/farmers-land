@@ -64,9 +64,11 @@ namespace farmers_land.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        
+        [Required(ErrorMessage ="Email is required.")]
         [EmailAddress]
         [Display(Name = "Email")]
+        //[System.Web.Mvc.Remote("doesEmailExist", "Account", HttpMethod = "POST", ErrorMessage = "This email already exists.")]
         public string Email { get; set; }
 
         [Required]
@@ -79,6 +81,30 @@ namespace farmers_land.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "First Name is required.")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last Name is required.")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Address is required.")]
+        [StringLength(200, ErrorMessage = "Must be at least 10 characters.", MinimumLength = 10)]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Required(ErrorMessage = "Username is required.")]
+        [StringLength(200, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        [Display(Name = "Username")]
+        //[System.Web.Mvc.Remote("doesUserNameExist", "Account", HttpMethod = "POST", ErrorMessage = "User name already exists. Please enter a different user name.")]
+        public string Username { get; set; }
+
+
+
+
+
     }
 
     public class ResetPasswordViewModel

@@ -151,7 +151,14 @@ namespace farmers_land.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    Address = model.Address,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -423,6 +430,21 @@ namespace farmers_land.Controllers
             base.Dispose(disposing);
         }
 
+        [HttpPost]
+        public JsonResult doesUserNameExist(string UserName)
+        {
+            var db = new ApplicationDbContext();
+            return Json(!db.Users.Any(x => x.UserName == UserName), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult doesEmailExist(string Email)
+        {
+
+            var email = System.Web.Security.Membership.GetUser(Email);
+            var db = new ApplicationDbContext();
+            return Json(!db.Users.Any(x => x.UserName == Email), JsonRequestBehavior.AllowGet);
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
