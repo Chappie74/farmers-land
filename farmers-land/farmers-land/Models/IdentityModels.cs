@@ -16,6 +16,10 @@ namespace farmers_land.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //custom user fields
+        public string address { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

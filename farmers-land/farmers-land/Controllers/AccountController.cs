@@ -136,7 +136,7 @@ namespace farmers_land.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [AllowAnonymous]        
         public ActionResult Register()
         {
             return View();

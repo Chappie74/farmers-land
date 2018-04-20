@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -202,6 +203,14 @@
     <Compile Include="Migrations\201804172003349_changedTableNames.cs" />
     <Compile Include="Migrations\201804172003349_changedTableNames.Designer.cs">
       <DependentUpon>201804172003349_changedTableNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804182013562_added age.cs" />
+    <Compile Include="Migrations\201804182013562_added age.Designer.cs">
+      <DependentUpon>201804182013562_added age.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804182015378_removed age.cs" />
+    <Compile Include="Migrations\201804182015378_removed age.Designer.cs">
+      <DependentUpon>201804182015378_removed age.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -283,7 +292,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -321,6 +329,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Views\Errors\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -337,6 +346,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804172003349_changedTableNames.resx">
       <DependentUpon>201804172003349_changedTableNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804182013562_added age.resx">
+      <DependentUpon>201804182013562_added age.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804182015378_removed age.resx">
+      <DependentUpon>201804182015378_removed age.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

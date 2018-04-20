@@ -36,16 +36,7 @@
                 <li class="nav-item">
                     @Html.ActionLink("Dummy", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item dropdown" style="padding:2%">
-
-                    <img src="~/Content/Images/grape.jpg" class="img-thumbnail img-fluid dropdown-toggle" data-toggle="dropdown" alt="profile picture">
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Cash: $1000</a>
-                        <a class="dropdown-item" href="#">View Profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
-                    </div>
-                </li>
+                @Html.Partial("_LoginPartial")
             </ul>
         </div>
     </nav>
