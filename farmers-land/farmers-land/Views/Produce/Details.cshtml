@@ -1,0 +1,103 @@
+﻿@model farmers_land.Models.Produce
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="ProduceSpace max-width">
+    <h4>Produce</h4>
+    <hr />
+
+
+    <div class="card col-lg-4 float-left">
+
+        <img class="card-img-top" src="" alt="">
+
+        <div class="card-body list-inline">
+
+            <dl class="dl-horizontal text-center">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayFor(model => model.Name)
+                </dt>
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category)
+
+
+
+                    @Html.DisplayFor(model => model.Category)
+                </dt>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Quantity)
+
+                    @Html.DisplayFor(model => model.Quantity)
+                </dt>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+
+                    @Html.DisplayFor(model => model.Price)
+                </dt>
+
+            </dl>
+
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+
+        </div>
+    </div>
+
+    <div class="card col-lg-4 float-left ">
+
+        <img class="card-img-top" src="" alt="">
+
+        <div class="card-body list-inline">
+
+            <dl class="dl-horizontal text-center">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayFor(model => model.Name)
+                </dt>
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category)
+
+
+
+                    @Html.DisplayFor(model => model.Category)
+                </dt>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Quantity)
+
+                    @Html.DisplayFor(model => model.Quantity)
+                </dt>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+
+                    @Html.DisplayFor(model => model.Price)
+                </dt>
+
+            </dl>
+
+            <a href="#" class="btn btn-primary pull-right">Add to Cart</a>
+
+        </div>
+    </div>
+
+
+    
+  
+
+
+    
+</div>
+

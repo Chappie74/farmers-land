@@ -14,6 +14,7 @@ namespace farmers_land.Controllers
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
+
         private ApplicationUserManager _userManager;
 
         public ManageController()

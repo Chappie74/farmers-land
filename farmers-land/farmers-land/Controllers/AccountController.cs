@@ -13,9 +13,13 @@ using farmers_land.Models;
 namespace farmers_land.Controllers
 {
     [Authorize]
+    [System.Runtime.InteropServices.Guid("76A00068-DDBA-4A8B-92CA-70D90B29A4D4")]
+
+
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
+
         private ApplicationUserManager _userManager;
 
         public AccountController()
@@ -58,7 +62,7 @@ namespace farmers_land.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return PartialView();
         }
 
         //
