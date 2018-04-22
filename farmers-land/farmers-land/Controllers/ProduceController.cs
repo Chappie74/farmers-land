@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic; 
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace farmers_land.Controllers
@@ -18,20 +19,24 @@ namespace farmers_land.Controllers
         // GET: Produce/Details
         public ActionResult Details()
         {
-            var produce = new Produce{Id = 1, Name = "carrot", Category = "vegtable", Quantity = 100, Price = 250 };
+            var produce = new Produce{ Sid = 1, Seller = "Paul", Name = "carrot", Category = "Vegtable", Quantity = 30, Price = 100 };
             return View(produce);
         }
 
         // GET: Produce/Create
         public ActionResult Create()
         {
-            return View();
+            var produce = new Produce { Sid = 2, Seller = "Raul", Name = "Mango", Category = "Fruit", Quantity = 20, Price = 100 };
+            return View(produce);
         }
 
         // POST: Produce/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(FormCollection details)
         {
+            var produce = new Produce { Sid = 2 , Seller = "Raul", Name = "Mango", Category = "Fruit", Quantity = 20 , Price = 100  };
+            return View("Details",produce);
+            // return RedirectToAction("Index", "Home");
             try
             {
                 // TODO: Add insert logic here

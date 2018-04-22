@@ -1,0 +1,61 @@
+﻿@model farmers_land.Models.Produce
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add Produce</h2>
+
+<div class="ProduceSpace max-width">
+    <hr/>
+
+
+    <form action="Create" method="post">
+
+       <div class="form-group">
+            <label for="Image">Image Input</label>
+            <input type="file" class="form-control-file" id="Image">
+        </div>  
+
+        <div class="form-group">
+            <label for="Category">Category</label>
+            <select class="form-control" id="Category">                
+                <option>Fruit</option>
+                <option>Vegtable</option>
+                <option>Grain</option>
+                <option>Provision</option>
+            </select>
+        </div>
+
+
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" id="Name" placeholder="Name">
+            </div>
+
+
+            <div class="form-group">
+                <label for="Quantity">Quantity</label>
+                <input type="number" class="form-control" id="Quantity" placeholder="Quantity">
+            </div>
+
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input type="text" class="form-control" id="Price" placeholder="Price">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+</form>
+
+
+
+
+
+
+
+</div>
+
+
+
