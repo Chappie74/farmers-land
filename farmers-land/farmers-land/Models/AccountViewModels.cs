@@ -91,7 +91,7 @@ namespace farmers_land.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
-        [StringLength(200, ErrorMessage = "Must be at least 10 characters.", MinimumLength = 10)]
+        [StringLength(200, ErrorMessage = "Address must be at least 10 characters.", MinimumLength = 10)]
         [Display(Name = "Address")]
         public string Address { get; set; }
 
@@ -101,11 +101,14 @@ namespace farmers_land.Models
         //[System.Web.Mvc.Remote("doesUserNameExist", "Account", HttpMethod = "POST", ErrorMessage = "User name already exists. Please enter a different user name.")]
         public string Username { get; set; }
 
-
-
+        [Required(ErrorMessage = "Account Type is Required")]
+        [Display(Name = "Account Type")]
+        public string UserRole { get; set; }
 
 
     }
+
+    
 
     public class ResetPasswordViewModel
     {

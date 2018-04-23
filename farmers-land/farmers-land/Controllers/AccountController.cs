@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using farmers_land.Models;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace farmers_land.Controllers
 {
@@ -75,7 +77,8 @@ namespace farmers_land.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,6 +142,32 @@ namespace farmers_land.Controllers
         [AllowAnonymous]        
         public ActionResult Register()
         {
+            List<SelectListItem> roles = new List<SelectListItem>();
+            ApplicationDbContext context = new ApplicationDbContext();
+            var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleList = rm.Roles.Select(m => new {m.Name, m.Id }).ToList();
+            
+            foreach (var role in roleList)
+            {
+                SelectListItem item = new SelectListItem();
+                if(!(role.Name == "Admin"))
+                {
+                    if(role.Name == "Consumer")
+                    {
+                        item = new SelectListItem() { Text = role.Name, Value = role.Name.ToString(), Selected = true };
+
+                    }
+                    else
+                    {
+                        item = new SelectListItem() { Text = role.Name, Value = role.Name};
+
+                    }
+
+                    roles.Add(item);
+                }
+            }
+
+            ViewBag.Roles = roles;
             return View();
         }
 
@@ -159,11 +188,16 @@ namespace farmers_land.Controllers
                     LastName = model.LastName
                 };
 
+                //string addRole = form["Roles"];
+
+                
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.UserRole);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                   
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -428,22 +462,6 @@ namespace farmers_land.Controllers
             }
 
             base.Dispose(disposing);
-        }
-
-        [HttpPost]
-        public JsonResult doesUserNameExist(string UserName)
-        {
-            var db = new ApplicationDbContext();
-            return Json(!db.Users.Any(x => x.UserName == UserName), JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult doesEmailExist(string Email)
-        {
-
-            var email = System.Web.Security.Membership.GetUser(Email);
-            var db = new ApplicationDbContext();
-            return Json(!db.Users.Any(x => x.UserName == Email), JsonRequestBehavior.AllowGet);
         }
         #region Helpers
         // Used for XSRF protection when adding external logins
