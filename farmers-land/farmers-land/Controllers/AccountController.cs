@@ -78,6 +78,11 @@ namespace farmers_land.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var user = await UserManager.FindByEmailAsync(model.Email);
+            if(user == null)
+            {
+                ModelState.AddModelError("", "The email address was not found. Consider signing up.");
+                return View(model);
+            }
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
@@ -88,12 +93,11 @@ namespace farmers_land.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Invalid login attempt. Password and/or Email incorrect.");
                     return View(model);
             }
+
         }
 
         //
@@ -497,7 +501,7 @@ namespace farmers_land.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Account");
+            return RedirectToAction("Login", "Account");
         }
 
         //
