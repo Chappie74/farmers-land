@@ -88,6 +88,8 @@ namespace farmers_land.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
@@ -137,65 +139,66 @@ namespace farmers_land.Controllers
             }
         }
 
-        //
+        //consumer register get
         // GET: /Account/Register
         [AllowAnonymous]        
-        public ActionResult Register()
+        public ActionResult ConsumerRegister()
         {
-            List<SelectListItem> roles = new List<SelectListItem>();
-            ApplicationDbContext context = new ApplicationDbContext();
-            var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var roleList = rm.Roles.Select(m => new {m.Name, m.Id }).ToList();
+
+            //List<SelectListItem> roles = new List<SelectListItem>();
+            //ApplicationDbContext context = new ApplicationDbContext();
+            //var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            //var roleList = rm.Roles.Select(m => new {m.Name, m.Id }).ToList();
             
-            foreach (var role in roleList)
-            {
-                SelectListItem item = new SelectListItem();
-                if(!(role.Name == "Admin"))
-                {
-                    if(role.Name == "Consumer")
-                    {
-                        item = new SelectListItem() { Text = role.Name, Value = role.Name.ToString(), Selected = true };
+            //foreach (var role in roleList)
+            //{
+            //    SelectListItem item = new SelectListItem();
+            //    if(!(role.Name == "Admin"))
+            //    {
+            //        if(role.Name == "Consumer")
+            //        {
+            //            item = new SelectListItem() { Text = role.Name, Value = role.Name.ToString(), Selected = true };
 
-                    }
-                    else
-                    {
-                        item = new SelectListItem() { Text = role.Name, Value = role.Name};
+            //        }
+            //        else
+            //        {
+            //            item = new SelectListItem() { Text = role.Name, Value = role.Name};
 
-                    }
+            //        }
 
-                    roles.Add(item);
-                }
-            }
+            //        roles.Add(item);
+            //    }
+            //}
 
-            ViewBag.Roles = roles;
+            //ViewBag.Roles = roles;
             return View();
         }
 
-        //
+        //consumer register post
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> ConsumerRegister(RegisterViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
+                double balance = 100000.00;                 
                 var user = new ApplicationUser {
                     UserName = model.Username,
                     Email = model.Email,
                     Address = model.Address,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
-                };
-
-                //string addRole = form["Roles"];
-
-                
+                    LastName = model.LastName,
+                    Balance = balance,
+                    PhoneNumber = model.Phone,
+                };                
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, model.UserRole);
+                    UserManager.AddToRole(user.Id, "Consumer");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                    
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -211,6 +214,67 @@ namespace farmers_land.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //farmer register get
+        [AllowAnonymous]
+        public ActionResult FarmerRegister()
+        {
+            return View();
+        }
+
+        //
+        //farmer register post
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> FarmerRegister(RegisterViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                double balance = 0;
+                
+                var user = new ApplicationUser
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    Address = model.Address,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Balance = balance,
+                    PhoneNumber = model.Phone,
+                };
+
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    UserManager.AddToRole(user.Id, "Farmer");
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        //Index page. Page that is first seen
+        //Account/Index
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return View();
         }
 
         //
@@ -433,7 +497,7 @@ namespace farmers_land.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Account");
         }
 
         //

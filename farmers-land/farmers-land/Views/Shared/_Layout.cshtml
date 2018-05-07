@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    <title>@ViewBag.Title - Farmer's Market</title>
+    @Styles.Render("~/Content/css") 
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
     
     <nav class="navbar navbar-expand-md bg-primary navbar-dark">
-        <a class="navbar-brand" href="#">Farmers Land</a>
+        <a class="navbar-brand" href="#"><img src="~/Content/Images/logo.png" style="height:40px"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,7 +44,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Farmer's Market</p>
         </footer>
     </div>
 
