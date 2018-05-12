@@ -23,8 +23,9 @@ namespace farmers_land
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/umd/popper.min.js",
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
+                      "~/Scripts/respond.js",                      
                       "~/Scripts/navbar.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

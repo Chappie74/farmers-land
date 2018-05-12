@@ -137,4 +137,9 @@ namespace farmers_land.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class LoginPartialViewModel
+    {
+        double cash { get; set; }
+    }
 }

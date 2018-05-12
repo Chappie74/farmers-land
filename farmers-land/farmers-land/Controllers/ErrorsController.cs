@@ -19,9 +19,9 @@ namespace farmers_land.Controllers
             return View();
         }
 
-        public ActionResult Http401()
+        public ContentResult Http401()
         {
-            return View();
+            return Content("Unauthorised");
         }
 
         public ContentResult Http404()
