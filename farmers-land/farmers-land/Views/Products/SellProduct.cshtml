@@ -1,0 +1,89 @@
+﻿@model farmers_land.Models.SellProduct
+
+@{
+    ViewBag.Title = "Sell Product";
+}
+
+<h2>SellProduct</h2>
+
+@using (Html.BeginForm("SellProduct", "Products", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>List A Product For Sale</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "col-form-label" })
+                            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control", @tabindex = "1", @required = "required", @placeholder = "eg. Carrots, Tomatoes, Bora" } })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Amount, htmlAttributes: new { @class = "col-form-label" })
+                            @Html.EditorFor(m => m.Amount, new { htmlAttributes = new { @class = "form-control", @tabindex = "3", @min = "1", @max = "60000", @required = "required", @placeholder = "Units" } })
+                            @Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="img_file" class="btn btn-primary" tabindex="5" ><i class="fa fa-upload" aria-hidden="true"></i> Upload an image</label>
+                            <div class="text-info" id="img_Message"></div><br />
+                            <input type="file" id="img_file" hidden name="ImageFile" required accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Category, htmlAttributes: new { @class = "col-form-label" })
+                            @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category, "-----Select-----", new { @class = "form-control", @required = "required", @tabindex = "2" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Price, htmlAttributes: new { @class = "col-form-label" })
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <i class="fa fa-dollar input-group-text" aria-hidden="true"></i>
+                                </div>
+                                @Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control", @tabindex = "3",@type = "number" ,@min = "1.00", @max = "999999999.00", @required = "required", @placeholder = "Price per unit $1.00" } })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-4">
+                        <input class=" btn btn-primary" type="submit" value="List for sale" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2"></div>
+
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function ()
+        {
+            $("#img_file").change(function () {
+                var file = $(this)[0].files;
+                if (file.length === 0) {
+                    $("#img_Message").html("No image selected");
+                }
+                else
+                {
+                    $("#img_Message").html("Image uploaded successfully.");
+                }
+            });
+        });
+    </script>
+}

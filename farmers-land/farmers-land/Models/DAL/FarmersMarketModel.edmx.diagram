@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="11ddd194c52d4a4bb7dd596560c440ec" Name="Diagram1">
+        <EntityTypeShape EntityType="farmersmarketModel.Cart" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="farmersmarketModel.Category" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="farmersmarketModel.Product" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="farmersmarketModel.ProductsForSale" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="farmersmarketModel.ProductsPurchased" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="farmersmarketModel.ProductsSold" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="farmersmarketModel.FK_Cart_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="farmersmarketModel.FK_Products_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="farmersmarketModel.FK_ProductsForSale_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="farmersmarketModel.FK_ProductsPurchased_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="farmersmarketModel.FK_ProductsSold_Products" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

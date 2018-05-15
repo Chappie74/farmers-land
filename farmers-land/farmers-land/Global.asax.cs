@@ -17,5 +17,47 @@ namespace farmers_land
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error()
+        {
+            var exception = Server.GetLastError();
+            var httpException = exception as HttpException;
+            Response.Clear();
+            Server.ClearError();
+            var routeData = new RouteData();
+            routeData.Values["controller"] = "Errors";
+            routeData.Values["action"] = "General";
+            routeData.Values["exception"] = exception;
+            Response.StatusCode = 500;
+            if (httpException != null)
+            {
+                Response.StatusCode = httpException.GetHttpCode();
+                switch (Response.StatusCode)
+                {
+                    case 400:
+                        routeData.Values["action"] = "Http400";
+                        break;
+                    case 401:
+                        routeData.Values["action"] = "Http401";
+                        break;
+                    case 403:
+                        routeData.Values["action"] = "Http403";
+                        break;
+                    case 404:
+                        routeData.Values["action"] = "Http404";
+                        break;
+                    case 500:
+                        routeData.Values["action"] = "Http500";
+                        break;
+
+                }
+            }
+            // Avoid IIS7 getting in the middle
+            Response.TrySkipIisCustomErrors = true;
+            IController errorsController = new Controllers.ErrorsController();
+            HttpContextWrapper wrapper = new HttpContextWrapper(Context);
+            var rc = new RequestContext(wrapper, routeData);
+            errorsController.Execute(rc);
+        }
     }
 }

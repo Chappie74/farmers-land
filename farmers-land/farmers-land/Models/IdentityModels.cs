@@ -16,6 +16,13 @@ namespace farmers_land.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //custom user fields
+        public string Address { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public double Balance { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -43,5 +50,7 @@ namespace farmers_land.Models
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
 
         }
+
+       
     }
 }

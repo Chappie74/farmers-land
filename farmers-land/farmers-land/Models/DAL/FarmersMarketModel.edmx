@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="farmersmarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="cart_id" />
+          </Key>
+          <Property Name="cart_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="price_per" Type="decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="seller_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryName" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="imageName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="imageData" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductsForSale">
+          <Key>
+            <PropertyRef Name="product_for_sale_id" />
+          </Key>
+          <Property Name="product_for_sale_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="date_listed" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductsPurchased">
+          <Key>
+            <PropertyRef Name="products_purcahsed" />
+          </Key>
+          <Property Name="products_purcahsed" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="date_purchased" Type="int" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="price_per" Type="decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="seller_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductsSold">
+          <Key>
+            <PropertyRef Name="products_sold" />
+          </Key>
+          <Property Name="products_sold" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="date_sold" Type="datetime" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="price_per" Type="decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="buyer_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cart_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Products">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsForSale_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductsForSale" Type="Self.ProductsForSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="ProductsForSale">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsPurchased_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductsPurchased" Type="Self.ProductsPurchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="ProductsPurchased">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsSold_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductsSold" Type="Self.ProductsSold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="ProductsSold">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="farmersmarketModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsForSale" EntityType="Self.ProductsForSale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsPurchased" EntityType="Self.ProductsPurchased" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsSold" EntityType="Self.ProductsSold" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Products" Association="Self.FK_Products_Products">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForSale_Products" Association="Self.FK_ProductsForSale_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsForSale" EntitySet="ProductsForSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsPurchased_Products" Association="Self.FK_ProductsPurchased_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsPurchased" EntitySet="ProductsPurchased" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsSold_Products" Association="Self.FK_ProductsSold_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsSold" EntitySet="ProductsSold" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="farmersmarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="cart_id" />
+          </Key>
+          <Property Name="cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="price_per" Type="Decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="seller_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Products" FromRole="Cart" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Products" FromRole="Categories" ToRole="Products" />
+          <Property Name="categoryName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="imageName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imageData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Products" FromRole="Products" ToRole="Cart" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Products_Products" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="ProductsForSales" Relationship="Self.FK_ProductsForSale_Products" FromRole="Products" ToRole="ProductsForSale" />
+          <NavigationProperty Name="ProductsPurchaseds" Relationship="Self.FK_ProductsPurchased_Products" FromRole="Products" ToRole="ProductsPurchased" />
+          <NavigationProperty Name="ProductsSolds" Relationship="Self.FK_ProductsSold_Products" FromRole="Products" ToRole="ProductsSold" />
+        </EntityType>
+        <EntityType Name="ProductsForSale">
+          <Key>
+            <PropertyRef Name="product_for_sale_id" />
+          </Key>
+          <Property Name="product_for_sale_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="date_listed" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsForSale_Products" FromRole="ProductsForSale" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ProductsPurchased">
+          <Key>
+            <PropertyRef Name="products_purcahsed" />
+          </Key>
+          <Property Name="products_purcahsed" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="date_purchased" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="price_per" Type="Decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="seller_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsPurchased_Products" FromRole="ProductsPurchased" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ProductsSold">
+          <Key>
+            <PropertyRef Name="products_sold" />
+          </Key>
+          <Property Name="products_sold" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="date_sold" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="price_per" Type="Decimal" Precision="38" Scale="2" Nullable="false" />
+          <Property Name="buyer_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsSold_Products" FromRole="ProductsSold" ToRole="Products" />
+        </EntityType>
+        <Association Name="FK_Cart_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Products">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsForSale_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductsForSale" Type="Self.ProductsForSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="ProductsForSale">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsPurchased_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductsPurchased" Type="Self.ProductsPurchased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="ProductsPurchased">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsSold_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductsSold" Type="Self.ProductsSold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="ProductsSold">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="farmersmarketEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductsForSales" EntityType="Self.ProductsForSale" />
+          <EntitySet Name="ProductsPurchaseds" EntityType="Self.ProductsPurchased" />
+          <EntitySet Name="ProductsSolds" EntityType="Self.ProductsSold" />
+          <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Products" Association="Self.FK_Products_Products">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForSale_Products" Association="Self.FK_ProductsForSale_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsForSale" EntitySet="ProductsForSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsPurchased_Products" Association="Self.FK_ProductsPurchased_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsPurchased" EntitySet="ProductsPurchaseds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsSold_Products" Association="Self.FK_ProductsSold_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsSold" EntitySet="ProductsSolds" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="farmersmarketModelStoreContainer" CdmEntityContainer="farmersmarketEntities">
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="farmersmarketModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="cart_id" ColumnName="cart_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="price_per" ColumnName="price_per" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="farmersmarketModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="farmersmarketModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="imageName" ColumnName="imageName" />
+                <ScalarProperty Name="imageData" ColumnName="imageData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsForSales">
+            <EntityTypeMapping TypeName="farmersmarketModel.ProductsForSale">
+              <MappingFragment StoreEntitySet="ProductsForSale">
+                <ScalarProperty Name="product_for_sale_id" ColumnName="product_for_sale_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="date_listed" ColumnName="date_listed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsPurchaseds">
+            <EntityTypeMapping TypeName="farmersmarketModel.ProductsPurchased">
+              <MappingFragment StoreEntitySet="ProductsPurchased">
+                <ScalarProperty Name="products_purcahsed" ColumnName="products_purcahsed" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="date_purchased" ColumnName="date_purchased" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="price_per" ColumnName="price_per" />
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsSolds">
+            <EntityTypeMapping TypeName="farmersmarketModel.ProductsSold">
+              <MappingFragment StoreEntitySet="ProductsSold">
+                <ScalarProperty Name="products_sold" ColumnName="products_sold" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="date_sold" ColumnName="date_sold" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="price_per" ColumnName="price_per" />
+                <ScalarProperty Name="buyer_id" ColumnName="buyer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

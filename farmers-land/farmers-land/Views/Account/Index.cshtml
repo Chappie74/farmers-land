@@ -1,0 +1,71 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="container">
+        <div class="modal fade" id="mymodal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title ">Welcome to Farm Land</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>In order to use our free services, you must first sign up and login</p>
+                                <p>Please choose what type of account you would to sign up for.</p>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+                                        <a href="@Url.Action("consumerRegister","Account")" id="consumerRegisterLink" title="Register as a consumer">
+                                            <img src="~/Content/Images/flaticons/shopper-with-bags.png" height="80" width="100" />
+                                            <h3><span class="badge badge-pill badge-info">Consumer</span></h3>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+                                        <a href="@Url.Action("farmerRegister","Account")" id="farmerRegisterLink" title="Register as a farmer">
+                                            <img src="~/Content/Images/flaticons/farmer.png" height="80" width="100" />
+                                            <h3><span class="badge badge-pill badge-info">Farmer</span></h3>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Already have an account? <a href="@Url.Action("Login","Account")"><span class="badge badge-pill badge-info">Log In</span></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+      @Scripts.Render("~/bundles/jquery")
+      @Scripts.Render("~/bundles/bootstrap")
+      @Scripts.Render("~/bundles/myScriptBundle")
+   
+</body>
+</html>
