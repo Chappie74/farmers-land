@@ -121,6 +121,8 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -193,6 +195,7 @@
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -226,9 +229,42 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DAL\Cart.cs">
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\Category.cs">
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\FarmersMarketModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FarmersMarketModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\FarmersMarketModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\FarmersMarketModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FarmersMarketModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\Product.cs">
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ProductsForSale.cs">
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ProductsPurchased.cs">
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\ProductsSold.cs">
+      <DependentUpon>FarmersMarketModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ProduceViewModel.cs" />
+    <Compile Include="Models\ProductsViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -258,6 +294,16 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Models\DAL\FarmersMarketModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FarmersMarketModel.edmx</DependentUpon>
+      <LastGenOutput>FarmersMarketModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DAL\FarmersMarketModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FarmersMarketModel.edmx</DependentUpon>
+      <LastGenOutput>FarmersMarketModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -280,6 +326,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <EntityDeploy Include="Models\DAL\FarmersMarketModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FarmersMarketModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DAL\FarmersMarketModel.edmx.diagram">
+      <DependentUpon>FarmersMarketModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -354,6 +407,17 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Errors\General.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\SellProduct.cshtml" />
+    <Content Include="Views\SellProducts\Create.cshtml" />
+    <Content Include="Views\SellProducts\Delete.cshtml" />
+    <Content Include="Views\SellProducts\Details.cshtml" />
+    <Content Include="Views\SellProducts\Edit.cshtml" />
+    <Content Include="Views\SellProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -363,6 +427,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

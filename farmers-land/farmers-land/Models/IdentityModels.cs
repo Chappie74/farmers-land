@@ -51,6 +51,6 @@ namespace farmers_land.Models
 
         }
 
-        public System.Data.Entity.DbSet<farmers_land.Models.ProduceViewModel> ProduceViewModels { get; set; }
+       
     }
 }
